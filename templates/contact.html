@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contato - Projeto Desenvolve{% endblock %}
+
+{% block content %}
+<main class="container my-5">
+    <div class="row">
+        <!-- Coluna da Imagem -->
+        <div class="col-md-6 mb-4">
+            <img src="{% static 'images/20943953.jpg' %}" alt="Contato" class="img-fluid rounded">
+        </div>
+        <!-- Coluna do Formulário -->
+        <div class="col-md-6">
+            <div class="card contact-card shadow-sm p-4">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Entre em Contato</h2>
+                    <p class="text-muted text-center">Fale conosco pelo WhatsApp ou preenchendo o formulário abaixo:</p>
+                    <p class="text-center">
+                        <a href="https://wa.me/553131570760" class="btn btn-success mb-3" target="_blank">
+                            <i class="fab fa-whatsapp"></i> WhatsApp: +55 (31) 3157-0760
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

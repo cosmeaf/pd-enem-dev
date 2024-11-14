@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Projeto Desenvolve{% endblock %}</title>
+    {% load static %}
+    <link rel="icon" type="image/avif" href="{% static 'images/icon.avif' %}">
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a href="{% url 'cpf_view' %}" class="navbar-brand">
+                <img src="{% static 'images/logo.avif' %}" alt="Logo Projeto Desenvolve" class="img-fluid" style="width: 150px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cpf_view' %}"></a>
+                    </li>
+                </ul>
+                <a href="{% url 'contact_view' %}" class="btn btn-primary ml-lg-3">Contato</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer text-light py-4">
+        <div class="container footer-container-fluid">
+            <div class="row text-center text-md-left">
+                <!-- Coluna 1: Logo -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <img src="{% static 'images/logo.avif' %}" alt="Logo Projeto Desenvolve" class="img-fluid mb-3" style="width: 150px;">
+                </div>
+    
+                <!-- Coluna 2: Links Institucionais -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Institucional</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light"><i class="fas fa-info-circle mr-2"></i>Sobre Nós</a></li>
+                        <li><a href="#" class="text-light"><i class="fas fa-users mr-2"></i>Nossa Equipe</a></li>
+                        <li><a href="#" class="text-light"><i class="fas fa-project-diagram mr-2"></i>Projetos</a></li>
+                    </ul>
+                </div>
+    
+                <!-- Coluna 3: Links LGPD e Legais -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Legal e LGPD</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light"><i class="fas fa-shield-alt mr-2"></i>Política de Privacidade</a></li>
+                        <li><a href="#" class="text-light"><i class="fas fa-file-contract mr-2"></i>Termos de Uso</a></li>
+                        <li><a href="#" class="text-light"><i class="fas fa-user-shield mr-2"></i>Conformidade LGPD</a></li>
+                    </ul>
+                </div>
+    
+                <!-- Coluna 4: Redes Sociais -->
+                <div class="col-md-3">
+                    <h5 class="text-uppercase">Redes Sociais</h5>
+                    <div class="footer-social-media">
+                        <a href="#" class="text-light d-block mb-2"><i class="fab fa-instagram mr-2"></i>Instagram</a>
+                        <a href="#" class="text-light d-block mb-2"><i class="fab fa-facebook mr-2"></i>Facebook</a>
+                        <a href="#" class="text-light d-block mb-2"><i class="fab fa-twitter mr-2"></i>Twitter</a>
+                        <a href="#" class="text-light d-block"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Container de Endereço -->
+            <div class="row mt-3 text-center">
+                <div class="col-12">
+                    <p class="mb-1">
+                        Rua Tomé de Souza, 810, Cj 401, Savassi, Belo Horizonte/MG - CEP: 30.140-135
+                        | PROSPERARE EDUCAÇÃO, CULTURA E CIDADANIA S.A - CNPJ nº 10.976.971/0001-25
+                    </p>
+                    <p class="small">&copy; 2024 Projeto Desenvolve - Todos os direitos reservados.</p>
+                    <p class="small text-muted">
+                        Versão do App: {{ APP_VERSION }} | Autor: {{ APP_AUTHOR }} | Última Atualização: {{ APP_DATE }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Popper.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Bootstrap JS CDN -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
