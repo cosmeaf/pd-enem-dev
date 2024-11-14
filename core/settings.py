@@ -86,20 +86,20 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pd-enem-db',
-        'USER': 'pdadmin',
-        'PASSWORD': 'pdadmin@2024',
-        'HOST': '147.79.106.108',
-        'PORT': '5432',
+        'ENGINE': config('DB_DEFAULT_ENGINE'),
+        'NAME': config('DB_DEFAULT_NAME'),
+        'USER': config('DB_DEFAULT_USER'),
+        'PASSWORD': config('DB_DEFAULT_PASSWORD'),
+        'HOST': config('DB_DEFAULT_HOST'),
+        'PORT': config('DB_DEFAULT_PORT'),
     },
     'remote': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pd-form-db',
-        'USER': 'pdadmin',
-        'PASSWORD': 'pdadmin@2024',
-        'HOST': '147.79.106.108',
-        'PORT': '5432',
+        'ENGINE': config('DB_REMOTE_ENGINE'),
+        'NAME': config('DB_REMOTE_NAME'),
+        'USER': config('DB_REMOTE_USER'),
+        'PASSWORD': config('DB_REMOTE_PASSWORD'),
+        'HOST': config('DB_REMOTE_HOST'),
+        'PORT': config('DB_REMOTE_PORT'),
     }
 }
 
@@ -126,9 +126,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo' 
 
 USE_I18N = True
 
@@ -138,6 +138,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+# Limite de tamanho de arquivo (opcional)
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
 STATIC_URL = 'static/'
@@ -202,4 +203,72 @@ CACHES = {
     }
 }
 
+# Configurações do Celery
+CELERY_BROKER_URL = 'redis://172.16.0.13:6379/0'
+CELERY_RESULT_BACKEND = 'redis://172.16.0.13:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
+
+# Configuração de logs para o Django e Celery
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': LOG_FILE_PATH,
+            'formatter': 'verbose',
+        },
+        'debug_file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': DEBUG_LOG_FILE_PATH,
+            'formatter': 'verbose',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ['debug_file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'celery': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'celery.task': {
+            'handlers': ['debug_file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        '': {  # Root logger
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+        },
+    },
+}
